@@ -19,5 +19,17 @@ namespace WebAddressbookTests
             app.Navigator.ReturnToHomePage();
             app.Auth.Logout();
         }
+
+        [Test]
+        public void EmptyContactCreationTest()
+        {
+            app.Contact.InitNewContactCreation();
+            ContactData contact = new ContactData("", "");
+            app.Contact.FillContactForm(contact);
+            app.Contact.SubmitContactCreation();
+            app.Navigator.ReturnToHomePage();
+            app.Auth.Logout();
+        }
+
     }
 }
