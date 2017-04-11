@@ -25,12 +25,6 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper InitNewContactCreation()
-        {
-            driver.FindElement(By.LinkText("add new")).Click();
-            return this;
-        }
-
         public ContactHelper Modify(ContactData newCData)
         {
             InitContactModification();
@@ -45,6 +39,12 @@ namespace WebAddressbookTests
             SelectContact(v);
             RemoveContact();
             CloseAlert();
+            return this;
+        }
+
+        public ContactHelper InitNewContactCreation()
+        {
+            driver.FindElement(By.LinkText("add new")).Click();
             return this;
         }
 
