@@ -108,5 +108,10 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("update")).Click();
             return this;
         }
+
+        public bool IsContactExist()
+        {
+            return IsElementPresent(By.Name("entry"));
+        }
     }
 }

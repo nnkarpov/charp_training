@@ -95,5 +95,10 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("group page")).Click();
             return this;
         }
+
+        public bool IsGroupExist()
+        {
+            return IsElementPresent(By.ClassName("group"));
+        }
     }
 }

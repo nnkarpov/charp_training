@@ -12,9 +12,7 @@ namespace WebAddressbookTests
         [Test]
         public void GroupCreationTest()
         {
-            GroupData group = new GroupData("Name");
-            group.Header = "Header";
-            group.Footer = "Footer";
+            GroupData group = new GroupData("Name", "Header", "Footer");
             app.Groups.Create(group);
             app.Auth.Logout();
         }
@@ -22,9 +20,7 @@ namespace WebAddressbookTests
         [Test]
         public void EmptyGroupCreationTest()
         {
-            GroupData group = new GroupData("");
-            group.Header = "";
-            group.Footer = "";
+            GroupData group = new GroupData("", "", "");
             app.Groups.Create(group);
             app.Auth.Logout();
         }
