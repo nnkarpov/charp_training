@@ -13,11 +13,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
-            if (! app.Contact.IsContactExist())
-            {
-                ContactData contact = new ContactData("", "");
-                app.Contact.Create(contact);
-            }
+            app.Contact.ContactExistanceCheck();
             app.Contact.Remove(1);
             app.Auth.Logout();
         }

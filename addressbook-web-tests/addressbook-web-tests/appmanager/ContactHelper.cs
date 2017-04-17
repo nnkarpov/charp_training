@@ -113,5 +113,16 @@ namespace WebAddressbookTests
         {
             return IsElementPresent(By.Name("entry"));
         }
+
+        public ContactHelper ContactExistanceCheck()
+        {
+            manager.Navigator.OpenHomePage();
+            if (! IsContactExist())
+            {
+                ContactData contact = new ContactData("", "");
+                Create(contact);
+            }
+            return this;
+        }
     }
 }

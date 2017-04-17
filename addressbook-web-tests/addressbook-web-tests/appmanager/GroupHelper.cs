@@ -100,5 +100,16 @@ namespace WebAddressbookTests
         {
             return IsElementPresent(By.ClassName("group"));
         }
+
+        public GroupHelper GroupExistenceCheck()
+        {
+            manager.Navigator.GoToGroupsPage();
+            if (! IsGroupExist())
+            {
+                GroupData group = new GroupData("", "", "");
+                Create(group);
+            }
+            return this;
+        }
     }
 }
