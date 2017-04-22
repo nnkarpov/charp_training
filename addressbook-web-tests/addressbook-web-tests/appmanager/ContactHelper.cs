@@ -77,6 +77,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            contactCashe = null;
             return this;
         }
 
@@ -89,6 +90,7 @@ namespace WebAddressbookTests
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCashe = null;
             return this;
         }
 
@@ -107,6 +109,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactCashe = null;
             return this;
         }
 
@@ -126,18 +129,23 @@ namespace WebAddressbookTests
             return this;
         }
 
+        private List<ContactData> contactCashe = null;
+
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.OpenHomePage();
-            ICollection<IWebElement> entries = driver.FindElements(By.Name("entry"));
-            foreach (IWebElement entry in entries)
+            if (contactCashe == null)
             {
-                string fname = entry.FindElements(By.TagName("td"))[2].Text;
-                string lname = entry.FindElements(By.TagName("td"))[1].Text;
-                contacts.Add(new ContactData(fname, lname));
-            }
-            return contacts;
+                contactCashe = new List<ContactData>();
+                manager.Navigator.OpenHomePage();
+                ICollection<IWebElement> entries = driver.FindElements(By.Name("entry"));
+                foreach (IWebElement entry in entries)
+                {
+                    string fname = entry.FindElements(By.TagName("td"))[2].Text;
+                    string lname = entry.FindElements(By.TagName("td"))[1].Text;
+                    contactCashe.Add(new ContactData(fname, lname));
+                }
+            } 
+            return new List<ContactData>(contactCashe);
         }
     }
 }
