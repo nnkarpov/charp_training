@@ -25,8 +25,9 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Modify(ContactData newCData)
+        public ContactHelper Modify(int v, ContactData newCData)
         {
+            SelectContact(v);
             InitContactModification();
             FillContactForm(newCData);
             SubmitContactModification();
@@ -81,7 +82,7 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
 
@@ -123,6 +124,20 @@ namespace WebAddressbookTests
                 Create(contact);
             }
             return this;
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.OpenHomePage();
+            ICollection<IWebElement> entries = driver.FindElements(By.Name("entry"));
+            foreach (IWebElement entry in entries)
+            {
+                string fname = entry.FindElements(By.TagName("td"))[2].Text;
+                string lname = entry.FindElements(By.TagName("td"))[1].Text;
+                contacts.Add(new ContactData(fname, lname));
+            }
+            return contacts;
         }
     }
 }
