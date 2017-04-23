@@ -13,13 +13,14 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
+            int v = 2;
             app.Contact.ContactExistanceCheck();
             ContactData newCData = new ContactData("NewFirstName", "NewLastName");
             List<ContactData> oldContacts = app.Contact.GetContactList();
-            app.Contact.Modify(0, newCData);
+            app.Contact.Modify(v, newCData);
             List<ContactData> newContacts = app.Contact.GetContactList();
-            oldContacts[0].FirstName = newCData.FirstName;
-            oldContacts[0].LastName = newCData.LastName;
+            oldContacts[v].FirstName = newCData.FirstName;
+            oldContacts[v].LastName = newCData.LastName;
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);

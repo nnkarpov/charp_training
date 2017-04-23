@@ -44,8 +44,11 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return FirstName.CompareTo(other.FirstName)
-                + LastName.CompareTo(other.LastName);
+            if (LastName != other.LastName)
+            {
+                return LastName.CompareTo(other.LastName);
+            }
+            else return FirstName.CompareTo(other.FirstName);
         }
 
         public string FirstName { get; set; }
