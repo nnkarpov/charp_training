@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-       public ContactData(string firstname, string lastname)
+        private string allPhones;
+
+        public ContactData(string firstname, string lastname)
         {
             FirstName = firstname;
             LastName = lastname;
@@ -90,5 +93,32 @@ namespace WebAddressbookTests
         public string Phone2 { get; set; }
 
         public string Notes { get; set; }
+
+        public string AllPhones {
+            get
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work)).Trim();
+                }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
+
+        private string CleanUp(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
+        }
     }
 }
