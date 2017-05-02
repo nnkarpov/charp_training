@@ -166,10 +166,17 @@ namespace WebAddressbookTests
             };
         }
 
+        public string GetContactInformationFromTableReverse(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            String cell = driver.FindElements(By.Name("entry"))[index].Text;
+            return Regex.Replace(cell, "[ ]", "");
+        }
+
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.OpenHomePage();
-            InitContactModification(0);
+            InitContactModification(index);
             string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
@@ -183,6 +190,12 @@ namespace WebAddressbookTests
                 Mobile = mobilePhone,
                 Work = workPhone
             };
+        }
+
+        public string GetContactInformationFromEditFormReverse(int index)
+        {
+            ContactData informationData = GetContactInformationFromEditForm(index);
+            return informationData.LastName + informationData.FirstName + informationData.AllPhones;
         }
 
         public int GetNumberOfSearchResults()
