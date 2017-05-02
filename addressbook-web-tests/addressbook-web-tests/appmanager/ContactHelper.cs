@@ -173,6 +173,14 @@ namespace WebAddressbookTests
             return Regex.Replace(cell, "[ ]", "");
         }
 
+        public string GetContactInformationFromDetailsReverse(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            driver.FindElement(By.XPath("(//img[@alt='Details'])[" + (index + 1) + "]")).Click();
+            IWebElement element = driver.FindElement(By.Id("content"));
+            return Regex.Replace(element.Text, "[HMW: ()\\-]", "");
+        }
+
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.OpenHomePage();
@@ -196,6 +204,12 @@ namespace WebAddressbookTests
         {
             ContactData informationData = GetContactInformationFromEditForm(index);
             return informationData.LastName + informationData.FirstName + informationData.AllPhones;
+        }
+
+        public string GetContactInformationFromEditFormDetailsReverse(int index)
+        {
+            ContactData informationData = GetContactInformationFromEditForm(index);
+            return (informationData.FirstName + informationData.LastName + "\r\n\r\n" + informationData.AllPhones).Trim();
         }
 
         public int GetNumberOfSearchResults()

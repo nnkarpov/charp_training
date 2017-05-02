@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using System.Threading.Tasks;
-using OpenQA.Selenium;
 
 namespace WebAddressbookTests
 {
@@ -23,12 +22,21 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void TestContactInformationReverse()
+        public void TestContactInformationReverseHome()
         {
             int v = 0;
             string fromTableReverse = app.Contact.GetContactInformationFromTableReverse(v);
             string fromFormReverse = app.Contact.GetContactInformationFromEditFormReverse(v);
             Assert.AreEqual(fromTableReverse, fromFormReverse);
+        }
+
+        [Test]
+        public void TestContactInformationReverseDetails()
+        {
+            int v = 0;
+            string fromDetailsReverse = app.Contact.GetContactInformationFromDetailsReverse(v);
+            string fromFormReverse = app.Contact.GetContactInformationFromEditFormDetailsReverse(v);
+            Assert.AreEqual(fromDetailsReverse, fromFormReverse);
         }
     }
 }
