@@ -8,7 +8,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
-//using Excel = Microsoft.Office.Interop.Excel;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace WebAddressbookTests
 {
@@ -29,7 +29,6 @@ namespace WebAddressbookTests
             return groups;
         }
 
-        /*
         public static IEnumerable<GroupData> RandomGroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
@@ -45,7 +44,6 @@ namespace WebAddressbookTests
             }
             return groups;
         }
-        */
 
         public static IEnumerable<GroupData> RandomGroupDataFromXmlFile()
         {
@@ -57,7 +55,6 @@ namespace WebAddressbookTests
             return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json"));
         }
 
-        /*
         public static IEnumerable<GroupData> RandomGroupDataFromExcelFile()
         {
             List<GroupData> groups = new List<GroupData>();
@@ -79,7 +76,6 @@ namespace WebAddressbookTests
             app.Quit();
             return groups;
         }
-        */
 
         [Test, TestCaseSource("RandomGroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)

@@ -8,7 +8,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
-//using Excel = Microsoft.Office.Interop.Excel;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace addressbook_test_data_generators
 {
@@ -44,24 +44,18 @@ namespace addressbook_test_data_generators
             {
                 System.Console.Out.Write("Unrecognized datatype " + datatype);
             }
-
-                /*
-                if (format == "excel")
-                {
-                    WriteGroupsToExcelFile(groups, filename);
-                }
-                else
-                {
-                */
+            if (format == "excel")
+            {
+                WriteGroupsToExcelFile(groups, filename);
+            }
+            else
+            {
                 StreamWriter writer = new StreamWriter(filename);
-                /*
                 if (format == "csv")
                 {
                     WriteGroupsToCsvFile(groups, writer);
                 }
-                else
-                */
-                if (format == "xml")
+                else if (format == "xml")
                 {
                     if (datatype == "groups")
                     {
@@ -96,10 +90,9 @@ namespace addressbook_test_data_generators
                     System.Console.Out.Write("Unrecognized format " + format);
                 }
                 writer.Close();
-            //}            
+            }            
         }
 
-        /*
         static void WriteGroupsToCsvFile(List<GroupData> groups, StreamWriter writer)
         {
             foreach (GroupData group in groups)
@@ -108,7 +101,6 @@ namespace addressbook_test_data_generators
                     group.Name, group.Header, group.Footer));
             }
         }
-        */
 
         static void WriteGroupsToXmlFile(List<GroupData> groups, StreamWriter writer)
         {
@@ -130,7 +122,6 @@ namespace addressbook_test_data_generators
             writer.Write(JsonConvert.SerializeObject(contacts, Newtonsoft.Json.Formatting.Indented));
         }
 
-        /*
         static void WriteGroupsToExcelFile(List<GroupData> groups, string filename)
         {
             Excel.Application app = new Excel.Application();
@@ -152,6 +143,5 @@ namespace addressbook_test_data_generators
             app.Visible = false;
             app.Quit();
         }
-        */
     }
 }
