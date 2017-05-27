@@ -8,20 +8,19 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupModificationTests : AuthTestBase
+    public class GroupModificationTests : GroupTestBase
     {
         [Test]
         public void GroupModificationTest()
         {
-            int v = 0;
             app.Groups.GroupExistenceCheck();
             GroupData newData = new GroupData("NewName", "NewHeader", "NewFooter");
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-            GroupData oldData = oldGroups[v];
-            app.Groups.Modify(v, newData);
+            List<GroupData> oldGroups = GroupData.GetAll();
+            GroupData oldData = oldGroups[0];
+            app.Groups.Modify(oldData, newData);
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups[v].Name = newData.Name;
+            List<GroupData> newGroups = GroupData.GetAll();
+            oldGroups[0].Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
