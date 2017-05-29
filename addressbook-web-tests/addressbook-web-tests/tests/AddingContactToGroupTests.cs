@@ -12,6 +12,8 @@ namespace WebAddressbookTests
         [Test]
         public void AddingContactToGroupTest()
         {
+            app.Groups.GroupExistenceCheck();
+            app.Contact.ContactExistanceCheck();
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
             ContactData contact = ContactData.GetAll().Except(oldList).First();

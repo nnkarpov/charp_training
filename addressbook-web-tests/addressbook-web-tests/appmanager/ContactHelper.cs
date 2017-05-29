@@ -157,7 +157,7 @@ namespace WebAddressbookTests
             manager.Navigator.OpenHomePage();
             if (! IsContactExist())
             {
-                ContactData contact = new ContactData("", "");
+                ContactData contact = new ContactData("AutoFirstName", "AutoLastName");
                 Create(contact);
             }
             return this;
@@ -274,6 +274,16 @@ namespace WebAddressbookTests
             SelectContact(contact.Id);
             CommitRemovingContactFromGroup();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count() > 0);
+        }
+
+        public void ContactInGroupCheck(GroupData group)
+        {
+            manager.Navigator.OpenHomePage();
+            if (group.GetContacts().Count() == 0)
+            {
+                ContactData contact = ContactData.GetAll()[0];
+                AddContactToGroup(contact, group);
+            }
         }
 
         public void ClearGroupFilter()

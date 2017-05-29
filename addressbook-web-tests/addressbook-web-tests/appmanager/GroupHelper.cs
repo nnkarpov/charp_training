@@ -135,7 +135,7 @@ namespace WebAddressbookTests
             manager.Navigator.GoToGroupsPage();
             if (! IsGroupExist())
             {
-                GroupData group = new GroupData("", "", "");
+                GroupData group = new GroupData("AutoName", "AutoHeader", "AutoFooter");
                 Create(group);
             }
             return this;
