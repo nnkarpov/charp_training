@@ -208,8 +208,8 @@ namespace WebAddressbookTests
         {
             manager.Navigator.OpenHomePage();
             driver.FindElement(By.XPath("(//img[@alt='Details'])[" + (index + 1) + "]")).Click();
-            IWebElement element = driver.FindElement(By.Id("content"));
-            return Regex.Replace(element.Text, "[HMW: ()\\-]", "");
+            string details = driver.FindElement(By.Id("content")).Text;
+            return details;
         }
 
         public ContactData GetContactInformationFromEditForm(int index)
@@ -240,7 +240,24 @@ namespace WebAddressbookTests
         public string GetContactInformationFromEditFormDetailsReverse(int index)
         {
             ContactData informationData = GetContactInformationFromEditForm(index);
-            return (informationData.FirstName + informationData.LastName + "\r\n\r\n" + informationData.AllPhones).Trim();
+            string information = informationData.FirstName + " " + informationData.LastName;
+            if (informationData.Address != "")
+            {
+                information = information + "\r\n" + informationData.Address;
+            }
+            if (informationData.Home != "")
+            {
+                information = information + "\r\n\r\nH: " + informationData.Home;
+            }
+            if (informationData.Mobile != "")
+            {
+                information = information + "\r\nM: " + informationData.Mobile;
+            }
+            if (informationData.Work != "")
+            {
+                information = information + "\r\nW: " + informationData.Work;
+            }
+            return information;
         }
 
         public int GetNumberOfSearchResults()
