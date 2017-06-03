@@ -26,7 +26,13 @@ namespace mantis_tests
             };
             app.LogIn.Login(account);
             app.Menu.MenuProjects();
+            List<ProjectData> oldProjects = app.API.GetProjects(account);
             app.Project.CreateProject(project);
+            List<ProjectData> newProjects = app.API.GetProjects(account);
+            oldProjects.Add(project);
+            oldProjects.Sort();
+            newProjects.Sort();
+            Assert.AreEqual(oldProjects, newProjects);
         }
     }
 }
